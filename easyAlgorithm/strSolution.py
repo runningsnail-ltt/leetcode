@@ -32,8 +32,24 @@ class Solution(object):
                 return s.index(i)
         return -1
 
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        if needle=='':
+            return 0
+        needlelen = len(needle)
+        for i in range(len(haystack)-needlelen+1):
+            if needle == haystack[i:i+needlelen]:
+                return i
+        return -1
+
 
 if __name__ == "__main__":
-    s = "loveleetcode"
+
     solution = Solution()
-    print solution.firstUniqChar(s)
+    haystack = "hello"
+    needle = "ll"
+    print solution.strStr(haystack,needle)
