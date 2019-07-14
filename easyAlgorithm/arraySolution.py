@@ -130,6 +130,58 @@ class Solution(object):
         nums = int(''.join(map(str,digits)))+1
         digits = [int(x) for x in str(nums)]
         return digits
+
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        # count = nums.count(0)
+        # for i in range(count):
+        #     nums.remove(0)
+        # nums.extend(count*[0])
+        # return nums
+        for num in nums:
+            if num == 0:
+                nums.remove(0)
+                nums.append(0)
+        return nums
+
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        for i in range(9):
+            for j in range(9):
+                if board[i][j] != '.':
+                    for column in range(9):
+                        if column != j and board[i][j] == board[i][column]:
+                            return False
+                    for row in range(9):
+                        if row != i and board[i][j] == board[row][j]:
+                            return False
+                    for row in range((i//3)*3,(i//3)*3 +3):
+                        for column in range((j//3)*3,(j//3)*3 + 3):
+                            if row != i and column != j and board[row][column] == board[i][j]:
+                                return False
+        return True
+
+    def rotate(self, matrix):
+        """
+        # 先把矩阵转置一下然后翻转，矩阵是以list的list存储，以行为单位，行之间的操作要比列要简单
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
+        """
+        matrix[:] = map(list,zip(*matrix[::-1]))
+        return matrix
 if __name__ == '__main__':
-    nums =  [1,1,1,3,3,4,3,2,4,2]
-    print Solution().plusOne(nums)
+    matrix =[
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ]
+
+    print Solution().rotate(matrix)
+
+
